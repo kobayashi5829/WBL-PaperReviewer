@@ -1,0 +1,32 @@
+services:
+  app:
+    environment:
+      - DB_USER=app
+      - DB_PASSWORD=secret
+      - DB_NAME=wpr
+    ports:
+      - "8000:8000"
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+  db:
+    environment:
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=wpr
+    ports:
+      - "5432:5432"
+    volumes:
+      - type: volume
+        source: db-volume
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./docker/db/init
+        target: /docker-entrypoint-initdb.d
+    image: postgres:17
+volumes:
+  db-volume:
