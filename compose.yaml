@@ -1,9 +1,10 @@
 services:
   app:
     environment:
-      - DB_USER=app
-      - DB_PASSWORD=secret
-      - DB_NAME=wpr
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
     ports:
       - "8000:8000"
     volumes:
@@ -15,9 +16,9 @@ services:
       dockerfile: docker/app/Dockerfile
   db:
     environment:
-      - POSTGRES_USER=app
-      - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=wpr
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
     ports:
       - "5432:5432"
     volumes:
