@@ -19,7 +19,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reviewer.apps.ReviewerConfig',
-    'accounts.apps.AccountsConfig'
+    'accounts.apps.AccountsConfig',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account'
 ]
 
 MIDDLEWARE = [
@@ -30,7 +33,32 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
+
+# allauth
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# ログイン認証方法
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+
+# サインアップ必須
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+
+# リダイレクト先
+LOGIN_URL = 'account_login'
+LOGIN_REDIRECT_URL = 'reviewer:chat'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'reviewer:index'
+
+# 一発でログアウト
+ACCOUNT_LOGOUT_ON_GET = True
 
 ROOT_URLCONF = 'config.urls'
 
@@ -61,7 +89,7 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': 'db',
+        'HOST': os.environ.get('DB_HOST'),
         'PORT': 5432,
     }
 }
@@ -111,3 +139,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+AUTH_USER_MODEL = 'accounts.CustomUser'

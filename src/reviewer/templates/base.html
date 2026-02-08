@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}WBL Paper Reviewer{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'assets/logo.png' %}" type="image/png">
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+    <main>
+        {% block contents %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 WBL Paper Reviewer. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

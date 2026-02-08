@@ -1,8 +1,8 @@
 ---
-trigger: manual
+trigger: always_on
 ---
 
-以下のファイルはフロントエンド画面に関係するファイル・フォルダです。
+以下のファイルはフロントエンド画面に関係するファイル・フォルダです。HTML/CSS/JSファイルの操作だけをして下さい。
 
 HTMLフォルダ
 "src/reviewer/templates"
