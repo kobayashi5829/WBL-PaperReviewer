@@ -1,1 +1,0 @@
-create table user ( id int, name varchar(32) );
