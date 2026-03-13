@@ -44,6 +44,12 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+# カスタムログインフォーム
+ACCOUNT_FORMS = {
+    'login': 'accounts.forms.CustomLoginForm',
+    'signup': 'accounts.forms.CustomSignupForm',
+}
+
 # ログイン認証方法
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 
