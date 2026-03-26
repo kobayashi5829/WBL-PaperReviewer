@@ -22,7 +22,7 @@
     const MAX_CHARS = 4000;
     let sessionMessages = [];
     let isWaiting = false;
-    let currentProject = 'デフォルト';
+    let currentProject = null;
     let projectCount = 1;
 
     /* ============================================================
@@ -85,16 +85,18 @@
         li.classList.add('active');
         currentProject = name;
         headerProjectBadge.textContent = name;
+        messageInput.dispatchEvent(new Event('input'));
     }
 
-    /* Set click on default project item */
-    const defaultItem = projectList.querySelector('.sidebar-list-item');
-    if (defaultItem) {
-        defaultItem.addEventListener('click', function () {
-            setActiveProject(defaultItem, 'デフォルト');
+    /* Set click on existing project items */
+    projectList.querySelectorAll('.sidebar-list-item').forEach(function(item) {
+        item.addEventListener('click', function () {
+            const nameSpan = item.querySelector('span');
+            const name = nameSpan ? nameSpan.textContent : 'デフォルト';
+            setActiveProject(item, name);
             if (isMobile()) closeSidebar();
         });
-    }
+    });
 
     /* ============================================================
        Textarea Auto-resize & Validation
@@ -107,7 +109,7 @@
         charCount.textContent = `${len} / ${MAX_CHARS}`;
         charCount.classList.toggle('warn', len > MAX_CHARS * 0.8);
 
-        submitBtn.disabled = this.value.trim().length === 0 || isWaiting || len > MAX_CHARS;
+        submitBtn.disabled = this.value.trim().length === 0 || isWaiting || len > MAX_CHARS || !currentProject;
     });
 
     /* ============================================================
@@ -141,7 +143,10 @@
        ============================================================ */
     function handleSubmit() {
         const text = messageInput.value.trim();
-        if (!text || text.length > MAX_CHARS || isWaiting) return;
+        if (!text || text.length > MAX_CHARS || isWaiting || !currentProject) {
+            if (!currentProject) alert('プロジェクトを選択してください。');
+            return;
+        }
 
         // Hide welcome on first message
         if (chatWelcome && chatWelcome.style.display !== 'none') {

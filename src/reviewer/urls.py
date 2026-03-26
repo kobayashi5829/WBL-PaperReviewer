@@ -5,4 +5,5 @@ app_name = 'reviewer'
 urlpatterns = [
     path('', views.IndexView.as_view(), name="index"),
     path('chat/', views.ChatView.as_view(), name="chat"),
+    #path('chat/<str:project_id>/<int:history_id>')
 ]
