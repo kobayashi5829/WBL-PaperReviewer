@@ -7,3 +7,6 @@ SECRET_KEY = 'django-insecure-n&z)c5$odz+k^ln4^^y%&@(d*rtouks1djqfl-7k6ym3r%ihxu
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+# メディアファイルの管理場所
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
