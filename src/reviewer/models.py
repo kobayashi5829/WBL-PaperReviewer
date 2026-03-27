@@ -16,7 +16,7 @@ class Project(models.Model):
 
 class History(models.Model):
     project = models.ForeignKey(Project, verbose_name='プロジェクト', on_delete=models.CASCADE, related_name="histories")
-    history_id = models.IntegerField(verbose_name='履歴ID')
+    history_no = models.IntegerField(verbose_name='履歴番号')
     file = models.FileField(verbose_name='Latexファイル', upload_to='latex/')
     original_text = models.TextField(verbose_name='Latex内テキスト')
     advice_text = models.TextField(verbose_name='アドバイステキスト')
@@ -25,4 +25,4 @@ class History(models.Model):
         verbose_name_plural = 'History'
 
     def __str__(self):
-        return str(self.history_id)
+        return str(self.history_no)

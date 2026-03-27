@@ -42,13 +42,15 @@
             </div>
             <ul class="sidebar-list" id="projectList">
                 {% for project in project_list %}
-                <li class="sidebar-list-item" data-id="{{ project.id }}">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 7V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2" />
-                        <rect x="3" y="7" width="18" height="14" rx="2" />
-                    </svg>
-                    <span>{{ project.title }}</span>
-                </li>
+                <a href="{% url 'reviewer:project_chat' project.project_id project.histories.last.history_no|default:1 %}" style="text-decoration: none; color: inherit; display: block;">
+                    <li class="sidebar-list-item" data-id="{{ project.id }}">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 7V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2" />
+                            <rect x="3" y="7" width="18" height="14" rx="2" />
+                        </svg>
+                        <span>{{ project.title }}</span>
+                    </li>
+                </a>
                 {% empty %}
                 <li class="sidebar-list-item" data-id="default">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
